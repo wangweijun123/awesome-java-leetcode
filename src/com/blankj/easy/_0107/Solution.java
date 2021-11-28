@@ -4,8 +4,10 @@ package com.blankj.easy._107;
 import com.blankj.structure.TreeNode;
 import com.blankj.structure.TreeNodeMe;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static java.lang.System.out;
 
@@ -53,24 +55,61 @@ public class Solution {
 //        System.out.println(solution.levelOrderBottom(TreeNode.createTestData("[9,-42,-42,null,76,76,null,null,13,null,13]")));
     }
 
+    /**
+     *        0
+     *      /  \
+     *     1    2
+     *    / \  / \
+     *   3  4 5  6
+     * @param args
+     */
     public static void main(String[] args) {
         Solution solution = new Solution();
-        List<List<Integer>> lists = solution.levelOrderBottomMe(TreeNodeMe.createTestData("[1,2,2,3,4,4,3]"));
+        TreeNodeMe treeNodes = TreeNodeMe.createTestData("[0,1,2,3,4,5,6]");
+        List<List<Integer>> lists = solution.depthSearch(treeNodes);
 //        out.println(lists);
+        solution.levelSearch(treeNodes);
     }
 
-    public List<List<Integer>> levelOrderBottomMe(TreeNodeMe root) {
+    public List<List<Integer>> depthSearch(TreeNodeMe root) {
         List<List<Integer>> list = new LinkedList<>();
-        helperMe(root);
+        out.print("深度搜索: ");
+        depth(root);
+        out.println();
         return list;
     }
 
-    private void helperMe(TreeNodeMe root) {
+    /**
+     * 这里就是深度遍历(也就是前序遍历)
+     * @param root
+     */
+    private void depth(TreeNodeMe root) {
         if (root == null) return;
         out.print(root.value + " ");
-        helperMe(root.left);
-        helperMe(root.right);
+        depth(root.left);
+        depth(root.right);
 
+    }
+
+    /**
+     * 广度 0 1 2 3 4 5 6
+     * @param root
+     */
+    private void levelSearch(TreeNodeMe root) {
+        if (root == null) return;
+        Queue<TreeNodeMe> queue = new ArrayDeque();
+        queue.add(root);
+        out.print("广度搜索: ");
+        while (!queue.isEmpty()) {
+            TreeNodeMe header = queue.remove();
+            out.print(header.value + " ");
+            if (header.left != null) {
+                queue.add(header.left);
+            }
+            if (header.right != null) {
+                queue.add(header.right);
+            }
+        }
     }
 
 }

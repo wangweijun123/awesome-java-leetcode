@@ -28,14 +28,17 @@ public class TreeNode {
         if (data.equals("[]")) return null;
         data = data.substring(1, data.length() - 1);
         String[] split = data.split(",");
-        int len = len = split.length;
+        int len = split.length;
+        // 数组保存所有节点
         TreeNode[] treeNodes = new TreeNode[len];
-        data = data.substring(1, data.length() - 1);
+        // [1,2,2,3,4,4,3]
         for (int i = 0; i < len; i++) {
             if (!split[i].equals("null")) {
+                // 给节点赋值, 但是没有引用关系
                 treeNodes[i] = new TreeNode(Integer.valueOf(split[i]));
             }
         }
+        // 建立引用关系
         for (int i = 0; i < len; i++) {
             if (treeNodes[i] != null) {
                 int leftIndex = i * 2 + 1;

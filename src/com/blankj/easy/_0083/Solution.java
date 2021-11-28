@@ -109,6 +109,22 @@ public class Solution {
         return pre;
     }
 
+    public static ListNodeMe reverseList3(ListNodeMe current) {
+        ListNodeMe next = null;
+        ListNodeMe pre = null;
+        while (current != null) {
+            // 保存next指针
+            next = current.next;
+            // 打断next指针,指向前一个节点
+            current.next = pre;
+
+            // 为下一次循环做准备, 将pre节点指向当前节点, 将当前节点指向下一个节点,进入下一次循环
+            pre = current;
+            current = next;
+        }
+        return pre;
+    }
+
     /**
      * 删除第index个元素, 从0开始  "[1,2,3,4,5,6,8,10]"  2
      * @param current
